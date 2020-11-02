@@ -1,6 +1,6 @@
 {
   "name": "switch-ts",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "description": "Switch-case with support for complex conditions for TypeScript",
   "main": "src/index.ts",
   "scripts": {
@@ -20,6 +20,9 @@
   "keywords": [
     "switch",
     "case",
+    "when",
+    "is",
+    "default",
     "typescript"
   ],
   "author": "Seiji Kohara <sage.0118@gmail.com> (https://github.com/seijikohara)",

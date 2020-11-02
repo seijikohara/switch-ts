@@ -7,10 +7,10 @@ Switch-case with support for complex conditions for TypeScript
 import { when } from "switch-ts";
 
 const result = when(1)
-  .on(v => v === 1, () => "value1")
-  .on(v => v === 2, () => "value2")
-  .on(v => v === 3, () => "value3")
-  .otherwise(() => "other value");
+  .is(v => v === 1, () => "value1")
+  .is(v => v === 2, () => "value2")
+  .is(v => v === 3, () => "value3")
+  .default(() => "default value");
 // result -> "value1"
 ```
 
@@ -21,9 +21,9 @@ const result = when(1)
 import { eq, when } from "switch-ts";
 
 const result = when(1)
-  .on(eq(1), () => "value1")
-  .on(eq(2), () => "value2")
-  .on(eq(3), () => "value3")
-  .otherwise(() => "other value");
+  .is(eq(1), () => "value1")
+  .is(eq(2), () => "value2")
+  .is(eq(3), () => "value3")
+  .default(() => "default value");
 // result -> "value1"
 ```
