@@ -14,16 +14,16 @@ const result = when(1)
 // result -> "value1"
 ```
 
-- A comparison function is also provided.
-  - `eq`, `ne`, `gt`, `lt`, `ge`, `le`
+- Helper functions is also provided.
+  - `then`, `eq`, `ne`, `gt`, `lt`, `ge`, `le`
 
 ```typescript
-import { eq, when } from "switch-ts";
+import { eq, then, when } from "switch-ts";
 
 const result = when(1)
-  .is(eq(1), () => "value1")
-  .is(eq(2), () => "value2")
-  .is(eq(3), () => "value3")
-  .default(() => "default value");
+  .is(eq(1), then("value1"))
+  .is(eq(2), then("value2"))
+  .is(eq(3), then("value3"))
+  .default(then("default value"));
 // result -> "value1"
 ```
