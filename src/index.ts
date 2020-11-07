@@ -1,28 +1,26 @@
 type When<T> = {
-  is: <A>(prediction: (v: T) => boolean, producer: () => A) => Chain<T, A>;
+  is: <R>(prediction: (v: T) => boolean, producer: () => R) => Chain<T, R>;
 };
 
 type Chain<T, R> = {
-  is: <A>(prediction: (v: T) => boolean, producer: () => A) => Chain<T, R | A>;
-  default: <A>(producer: () => A) => R | A;
+  is: (prediction: (v: T) => boolean, producer: () => R) => Chain<T, R>;
+  default: (producer: () => R) => R;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const match = <T, R>(value: any): Chain<T, R> => ({
-  is: <A>() => match<T, R | A>(value),
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-  default: <A>(): A | R => value,
+const match = <T, R>(value: R): Chain<T, R> => ({
+  is: () => match<T, R>(value),
+  default: (): R => value,
 });
 
 const chain = <T, R>(value: T): Chain<T, R> => ({
-  is: <A>(prediction: (v: T) => boolean, producer: () => A) =>
-    prediction(value) ? match(producer()) : chain<T, A | R>(value),
-  default: <A>(producer: () => A) => producer(),
+  is: (prediction: (v: T) => boolean, producer: () => R) =>
+    prediction(value) ? match(producer()) : chain<T, R>(value),
+  default: (producer: () => R) => producer(),
 });
 
 export const when = <T>(value: T): When<T> => ({
-  is: <A>(prediction: (v: T) => boolean, producer: () => A) =>
-    prediction(value) ? match<T, A>(producer()) : chain<T, A>(value),
+  is: <R>(prediction: (v: T) => boolean, producer: () => R) =>
+    prediction(value) ? match<T, R>(producer()) : chain<T, R>(value),
 });
 
 export const then = <T>(value: T) => (): T => value;
