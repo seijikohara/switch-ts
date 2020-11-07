@@ -1,4 +1,7 @@
 # switch-ts
+
+[![npm version](https://badge.fury.io/js/switch-ts.svg)](https://badge.fury.io/js/vue-json-component) [![TypeScript](https://badges.frapsoft.com/typescript/code/typescript.svg?v=101)](https://github.com/ellerbrock/typescript-badges/)
+
 Switch-case with support for complex conditions for TypeScript
 
 ## Exapmle
