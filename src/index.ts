@@ -23,11 +23,32 @@ export const when = <T>(value: T): When<T> => ({
     prediction(value) ? match<T, R>(producer()) : chain<T, R>(value),
 });
 
-export const then = <T>(value: T) => (): T => value;
+export const then =
+  <T>(value: T) =>
+  (): T =>
+    value;
 
-export const eq = <T>(value1: T) => (value2: T): boolean => value1 === value2;
-export const ne = <T>(value1: T) => (value2: T): boolean => value1 !== value2;
-export const gt = <T>(value1: T) => (value2: T): boolean => value1 < value2;
-export const lt = <T>(value1: T) => (value2: T): boolean => value1 > value2;
-export const ge = <T>(value1: T) => (value2: T): boolean => value1 <= value2;
-export const le = <T>(value1: T) => (value2: T): boolean => value1 >= value2;
+export const eq =
+  <T>(value1: T) =>
+  (value2: T): boolean =>
+    value1 === value2;
+export const ne =
+  <T>(value1: T) =>
+  (value2: T): boolean =>
+    value1 !== value2;
+export const gt =
+  <T>(value1: T) =>
+  (value2: T): boolean =>
+    value1 < value2;
+export const lt =
+  <T>(value1: T) =>
+  (value2: T): boolean =>
+    value1 > value2;
+export const ge =
+  <T>(value1: T) =>
+  (value2: T): boolean =>
+    value1 <= value2;
+export const le =
+  <T>(value1: T) =>
+  (value2: T): boolean =>
+    value1 >= value2;
