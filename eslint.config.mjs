@@ -21,6 +21,12 @@ export default tseslint.config(
     },
   },
   {
+    files: ['**/*.test.ts', '**/*.spec.ts'],
+    rules: {
+      '@typescript-eslint/no-unnecessary-type-assertion': 'off',
+    },
+  },
+  {
     files: ['**/*.js', '**/*.mjs'],
     ...tseslint.configs.disableTypeChecked,
     languageOptions: {
