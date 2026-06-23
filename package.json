@@ -36,7 +36,7 @@
   "homepage": "https://github.com/seijikohara/switch-ts#readme",
   "devDependencies": {
     "@eslint/js": "^10.0.1",
-    "@types/jest": "^30.0.0",
+    "@types/jest": "30.0.0",
     "eslint": "^10.0.0",
     "eslint-config-prettier": "^10.1.8",
     "jest": "^30.2.0",
