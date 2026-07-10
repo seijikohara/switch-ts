@@ -20,7 +20,7 @@ import {
   noneOf,
   not,
   oneOf,
-  then,
+  thenValue,
   when,
 } from './index';
 
@@ -295,14 +295,14 @@ describe('when() - Pattern matching', () => {
 });
 
 describe('Helper functions', () => {
-  describe('then() - Producer helper', () => {
+  describe('thenValue() - Producer helper', () => {
     it('should create a producer function that returns the given value', () => {
-      const producer = then('hello');
+      const producer = thenValue('hello');
       expect(producer()).toBe('hello');
     });
 
     it('should work with when() pattern matching', () => {
-      const result = when(1).is(eq(1), then('one')).otherwise(then('other'));
+      const result = when(1).is(eq(1), thenValue('one')).otherwise(thenValue('other'));
 
       expect(result).toBe('one');
     });
@@ -312,11 +312,11 @@ describe('Helper functions', () => {
       ['test', 'test'],
       [true, true],
     ])('should handle %p values', (input, expected) => {
-      expect(then(input)()).toBe(expected);
+      expect(thenValue(input)()).toBe(expected);
     });
 
     it('should handle null values', () => {
-      expect(then(null)()).toBeNull();
+      expect(thenValue(null)()).toBeNull();
     });
   });
 
@@ -333,7 +333,7 @@ describe('Helper functions', () => {
     });
 
     it('should work with when()', () => {
-      const result = when(42).is(eq(42), then('matched')).otherwise(then('not matched'));
+      const result = when(42).is(eq(42), thenValue('matched')).otherwise(thenValue('not matched'));
 
       expect(result).toBe('matched');
     });
@@ -347,7 +347,7 @@ describe('Helper functions', () => {
     });
 
     it('should work with when()', () => {
-      const result = when(42).is(ne(0), then('not zero')).otherwise(then('zero'));
+      const result = when(42).is(ne(0), thenValue('not zero')).otherwise(thenValue('zero'));
 
       expect(result).toBe('not zero');
     });
@@ -362,7 +362,7 @@ describe('Helper functions', () => {
     });
 
     it('should work with when()', () => {
-      const result = when(15).is(gt(10), then('greater')).otherwise(then('not greater'));
+      const result = when(15).is(gt(10), thenValue('greater')).otherwise(thenValue('not greater'));
 
       expect(result).toBe('greater');
     });
@@ -377,7 +377,7 @@ describe('Helper functions', () => {
     });
 
     it('should work with when()', () => {
-      const result = when(5).is(lt(10), then('less')).otherwise(then('not less'));
+      const result = when(5).is(lt(10), thenValue('less')).otherwise(thenValue('not less'));
 
       expect(result).toBe('less');
     });
@@ -392,7 +392,7 @@ describe('Helper functions', () => {
     });
 
     it('should work with when()', () => {
-      const result = when(10).is(ge(10), then('greater or equal')).otherwise(then('less'));
+      const result = when(10).is(ge(10), thenValue('greater or equal')).otherwise(thenValue('less'));
 
       expect(result).toBe('greater or equal');
     });
@@ -407,7 +407,7 @@ describe('Helper functions', () => {
     });
 
     it('should work with when()', () => {
-      const result = when(10).is(le(10), then('less or equal')).otherwise(then('greater'));
+      const result = when(10).is(le(10), thenValue('less or equal')).otherwise(thenValue('greater'));
 
       expect(result).toBe('less or equal');
     });
@@ -532,8 +532,8 @@ describe('Predicate combinators', () => {
 
     it('should work with when()', () => {
       const result = when(5)
-        .is(all([gt(0), lt(10)]), then('in range'))
-        .otherwise(then('out of range'));
+        .is(all([gt(0), lt(10)]), thenValue('in range'))
+        .otherwise(thenValue('out of range'));
 
       expect(result).toBe('in range');
     });
@@ -558,8 +558,8 @@ describe('Predicate combinators', () => {
 
     it('should work with when()', () => {
       const result = when(3)
-        .is(any([eq(2), eq(3), eq(5)]), then('prime'))
-        .otherwise(then('not prime'));
+        .is(any([eq(2), eq(3), eq(5)]), thenValue('prime'))
+        .otherwise(thenValue('not prime'));
 
       expect(result).toBe('prime');
     });
@@ -573,7 +573,7 @@ describe('Predicate combinators', () => {
     });
 
     it('should work with when()', () => {
-      const result = when(5).is(not(eq(0)), then('not zero')).otherwise(then('zero'));
+      const result = when(5).is(not(eq(0)), thenValue('not zero')).otherwise(thenValue('zero'));
 
       expect(result).toBe('not zero');
     });
@@ -590,11 +590,11 @@ describe('Real-world use cases', () => {
   describe('HTTP status code handling', () => {
     const getStatusCategory = (status: number) =>
       when(status)
-        .is(all([ge(200), lt(300)]), then('Success'))
-        .is(all([ge(300), lt(400)]), then('Redirect'))
-        .is(all([ge(400), lt(500)]), then('Client Error'))
-        .is(all([ge(500), lt(600)]), then('Server Error'))
-        .otherwise(then('Unknown'));
+        .is(all([ge(200), lt(300)]), thenValue('Success'))
+        .is(all([ge(300), lt(400)]), thenValue('Redirect'))
+        .is(all([ge(400), lt(500)]), thenValue('Client Error'))
+        .is(all([ge(500), lt(600)]), thenValue('Server Error'))
+        .otherwise(thenValue('Unknown'));
 
     it.each([
       [200, 'Success'],
@@ -614,10 +614,10 @@ describe('Real-world use cases', () => {
           (v): v is number => typeof v === 'number',
           (v) =>
             when(v)
-              .is(lt(0), then('Age cannot be negative'))
-              .is(all([ge(0), lt(18)]), then('Must be 18 or older'))
-              .is(gt(120), then('Invalid age'))
-              .otherwise(then('Valid')),
+              .is(lt(0), thenValue('Age cannot be negative'))
+              .is(all([ge(0), lt(18)]), thenValue('Must be 18 or older'))
+              .is(gt(120), thenValue('Invalid age'))
+              .otherwise(thenValue('Valid')),
         )
         .otherwise(() => 'Age must be a number');
 
@@ -681,7 +681,7 @@ describe('New helper functions', () => {
       [-1, 'out'],
       [101, 'out'],
     ])('should evaluate between(0, 100) for %i as %s', (value, expected) => {
-      const result = when(value).is(between(0, 100), then('in')).otherwise(then('out'));
+      const result = when(value).is(between(0, 100), thenValue('in')).otherwise(thenValue('out'));
       expect(result).toBe(expected);
     });
   });
@@ -694,7 +694,7 @@ describe('New helper functions', () => {
       [-1, 'out'],
       [101, 'out'],
     ])('should evaluate betweenExclusive(0, 100) for %i as %s', (value, expected) => {
-      const result = when(value).is(betweenExclusive(0, 100), then('in')).otherwise(then('out'));
+      const result = when(value).is(betweenExclusive(0, 100), thenValue('in')).otherwise(thenValue('out'));
       expect(result).toBe(expected);
     });
   });
@@ -705,8 +705,8 @@ describe('New helper functions', () => {
       ['deleted', 'invalid'],
     ])('should evaluate oneOf for %s as %s', (value, expected) => {
       const result = when(value)
-        .is(oneOf(['active', 'pending', 'approved']), then('valid'))
-        .otherwise(then('invalid'));
+        .is(oneOf(['active', 'pending', 'approved']), thenValue('valid'))
+        .otherwise(thenValue('invalid'));
       expect(result).toBe(expected);
     });
 
@@ -714,7 +714,7 @@ describe('New helper functions', () => {
       [3, 'prime'],
       [4, 'not prime'],
     ])('should evaluate oneOf for number %i as %s', (value, expected) => {
-      const result = when(value).is(oneOf([2, 3, 5, 7]), then('prime')).otherwise(then('not prime'));
+      const result = when(value).is(oneOf([2, 3, 5, 7]), thenValue('prime')).otherwise(thenValue('not prime'));
       expect(result).toBe(expected);
     });
   });
@@ -725,8 +725,8 @@ describe('New helper functions', () => {
       ['deleted', 'invalid'],
     ])('should evaluate noneOf for %s as %s', (value, expected) => {
       const result = when(value)
-        .is(noneOf(['deleted', 'archived']), then('valid'))
-        .otherwise(then('invalid'));
+        .is(noneOf(['deleted', 'archived']), thenValue('valid'))
+        .otherwise(thenValue('invalid'));
       expect(result).toBe(expected);
     });
   });

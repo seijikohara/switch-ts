@@ -143,10 +143,10 @@ export const when = <T>(value: T): When<T> => ({
  *
  * @example
  * ```typescript
- * when(x).is(eq(1), then('one'))
+ * when(x).is(eq(1), thenValue('one'))
  * ```
  */
-export const then =
+export const thenValue =
   <T>(value: T) =>
   () =>
     value;
@@ -165,7 +165,7 @@ export const then =
  *
  * @example
  * ```typescript
- * when(x).is(eq(1), then('one'))
+ * when(x).is(eq(1), thenValue('one'))
  * // Checks if x === 1
  * ```
  */
@@ -184,7 +184,7 @@ export const eq =
  *
  * @example
  * ```typescript
- * when(x).is(ne(1), then('not one'))
+ * when(x).is(ne(1), thenValue('not one'))
  * // Checks if x !== 1
  * ```
  */
@@ -205,7 +205,7 @@ export const ne =
  *
  * @example
  * ```typescript
- * when(x).is(gt(0), then('positive'))
+ * when(x).is(gt(0), thenValue('positive'))
  * // Checks if x > 0
  * ```
  */
@@ -226,7 +226,7 @@ export const gt =
  *
  * @example
  * ```typescript
- * when(x).is(lt(0), then('negative'))
+ * when(x).is(lt(0), thenValue('negative'))
  * // Checks if x < 0
  * ```
  */
@@ -247,7 +247,7 @@ export const lt =
  *
  * @example
  * ```typescript
- * when(x).is(ge(0), then('non-negative'))
+ * when(x).is(ge(0), thenValue('non-negative'))
  * // Checks if x >= 0
  * ```
  */
@@ -268,7 +268,7 @@ export const ge =
  *
  * @example
  * ```typescript
- * when(x).is(le(10), then('at most ten'))
+ * when(x).is(le(10), thenValue('at most ten'))
  * // Checks if x <= 10
  * ```
  */
@@ -295,8 +295,8 @@ export const le =
  * @example
  * ```typescript
  * when(score)
- *   .is(between(0, 100), then('valid score'))
- *   .otherwise(then('invalid score'))
+ *   .is(between(0, 100), thenValue('valid score'))
+ *   .otherwise(thenValue('invalid score'))
  * // Checks if 0 <= score <= 100
  * ```
  */
@@ -319,8 +319,8 @@ export const between =
  * @example
  * ```typescript
  * when(age)
- *   .is(betweenExclusive(18, 65), then('working age'))
- *   .otherwise(then('not working age'))
+ *   .is(betweenExclusive(18, 65), thenValue('working age'))
+ *   .otherwise(thenValue('not working age'))
  * // Checks if 18 < age < 65
  * ```
  */
@@ -343,8 +343,8 @@ export const betweenExclusive =
  * @example
  * ```typescript
  * when(status)
- *   .is(oneOf(['active', 'pending', 'approved']), then('valid status'))
- *   .otherwise(then('invalid status'))
+ *   .is(oneOf(['active', 'pending', 'approved']), thenValue('valid status'))
+ *   .otherwise(thenValue('invalid status'))
  * // Checks if status is 'active', 'pending', or 'approved'
  * ```
  */
@@ -363,8 +363,8 @@ export const oneOf =
  * @example
  * ```typescript
  * when(status)
- *   .is(noneOf(['deleted', 'archived']), then('active status'))
- *   .otherwise(then('inactive status'))
+ *   .is(noneOf(['deleted', 'archived']), thenValue('active status'))
+ *   .otherwise(thenValue('inactive status'))
  * // Checks if status is neither 'deleted' nor 'archived'
  * ```
  */
@@ -452,8 +452,8 @@ export const isUndefined = (value: unknown): value is undefined => value === und
  * @example
  * ```typescript
  * when(x)
- *   .is(all([gt(0), lt(10)]), then('between 0 and 10'))
- *   .otherwise(then('outside range'))
+ *   .is(all([gt(0), lt(10)]), thenValue('between 0 and 10'))
+ *   .otherwise(thenValue('outside range'))
  * ```
  */
 export const all =
@@ -472,8 +472,8 @@ export const all =
  * @example
  * ```typescript
  * when(x)
- *   .is(any([eq(1), eq(2), eq(3)]), then('one, two, or three'))
- *   .otherwise(then('other'))
+ *   .is(any([eq(1), eq(2), eq(3)]), thenValue('one, two, or three'))
+ *   .otherwise(thenValue('other'))
  * ```
  */
 export const any =
@@ -491,8 +491,8 @@ export const any =
  * @example
  * ```typescript
  * when(x)
- *   .is(not(eq(0)), then('not zero'))
- *   .otherwise(then('zero'))
+ *   .is(not(eq(0)), thenValue('not zero'))
+ *   .otherwise(thenValue('zero'))
  * ```
  */
 export const not =
