@@ -11,8 +11,9 @@
     "eslint:fix": "eslint . --fix",
     "lint": "npm-run-all eslint check-types",
     "lint:fix": "npm-run-all eslint:fix check-types format",
-    "test": "jest",
-    "test:watch": "jest --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
     "deps:update": "taze -w && pnpm install",
     "deps:check": "taze"
   },
@@ -44,15 +45,14 @@
   "homepage": "https://github.com/seijikohara/switch-ts#readme",
   "devDependencies": {
     "@eslint/js": "10.0.1",
-    "@types/jest": "^30.0.0",
+    "@vitest/coverage-v8": "^4.1.10",
     "eslint": "10.6.0",
     "eslint-config-prettier": "10.1.8",
-    "jest": "^30.2.0",
     "npm-run-all2": "^9.0.0",
     "prettier": "3.9.4",
     "taze": "^19.14.1",
-    "ts-jest": "^29.4.5",
     "typescript": "^6.0.2",
-    "typescript-eslint": "8.63.0"
+    "typescript-eslint": "8.62.1",
+    "vitest": "^4.1.10"
   }
 }

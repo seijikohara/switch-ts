@@ -1,3 +1,5 @@
+import { describe, expect, it, vi } from 'vitest';
+
 import {
   all,
   any,
@@ -24,7 +26,7 @@ import {
 
 /**
  * Test suite for switch-ts pattern matching library
- * Following Jest 30 best practices:
+ * Following Vitest best practices:
  * - Descriptive test names
  * - AAA (Arrange-Act-Assert) pattern
  * - Explicit assertion counts for complex tests
@@ -78,8 +80,8 @@ describe('when() - Pattern matching', () => {
     });
 
     it('should stop evaluation after first match', () => {
-      const mockProducer = jest.fn(() => 'matched');
-      const mockSecondProducer = jest.fn(() => 'second');
+      const mockProducer = vi.fn(() => 'matched');
+      const mockSecondProducer = vi.fn(() => 'second');
 
       const result = when(1)
         .is(

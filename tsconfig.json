@@ -38,9 +38,6 @@
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
 
-    /* Type Definitions */
-    "types": ["jest"],
-
     /* Completeness */
     "skipLibCheck": true
   },
