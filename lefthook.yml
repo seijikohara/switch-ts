@@ -1,11 +1,11 @@
 pre-commit:
   jobs:
     - name: format staged files
-      run: pnpm oxfmt {staged_files}
+      run: pnpm exec oxfmt {staged_files}
       glob: '*.{ts,js,mjs,cjs,json,md,yml,yaml}'
       stage_fixed: true
     - name: lint staged files
-      run: pnpm oxlint --fix {staged_files}
+      run: pnpm exec oxlint --fix {staged_files}
       glob: '*.{ts,js,mjs,cjs}'
       stage_fixed: true
 

@@ -36,7 +36,7 @@
   },
   "scripts": {
     "build": "tsdown",
-    "check:package": "publint && pnpm pack --out package.tgz && attw package.tgz --profile esm-only; ec=$?; rm -f package.tgz; exit $ec",
+    "check:package": "node scripts/check-package.mjs",
     "typecheck": "tsc --noEmit",
     "lint": "oxlint --type-aware",
     "lint:fix": "oxlint --type-aware --fix",
