@@ -158,7 +158,9 @@ const transition = (state: State, action: Action): State =>
   when(state)
     .isValue(
       'idle',
-      when(action).isValue('start', 'loading' as State).otherwise(() => state)
+      when(action)
+        .isValue('start', 'loading' as State)
+        .otherwise(() => state)
     )
     .isValue(
       'loading',
@@ -169,17 +171,21 @@ const transition = (state: State, action: Action): State =>
     )
     .isValue(
       'success',
-      when(action).isValue('reset', 'idle' as State).otherwise(() => state)
+      when(action)
+        .isValue('reset', 'idle' as State)
+        .otherwise(() => state)
     )
     .isValue(
       'error',
-      when(action).isValue('reset', 'idle' as State).otherwise(() => state)
+      when(action)
+        .isValue('reset', 'idle' as State)
+        .otherwise(() => state)
     )
     .otherwise(() => state);
 
-console.log(transition('idle', 'start'));      // 'loading'
+console.log(transition('idle', 'start')); // 'loading'
 console.log(transition('loading', 'resolve')); // 'success'
-console.log(transition('success', 'reset'));   // 'idle'
+console.log(transition('success', 'reset')); // 'idle'
 ```
 
 ### Exhaustiveness Checking
@@ -196,7 +202,7 @@ const getMessage = (status: Status): string =>
     .isValue('rejected', 'Request rejected')
     .otherwise(() => exhaustive(status)); // TypeScript error if any case is missing
 
-console.log(getMessage('pending'));  // 'Waiting for approval'
+console.log(getMessage('pending')); // 'Waiting for approval'
 console.log(getMessage('approved')); // 'Request approved'
 
 // If you add a new status without handling it, TypeScript will show a compile error
@@ -227,7 +233,7 @@ when(value)
 Matches when the predicate returns `true`.
 
 ```typescript
-when(x).is((v) => v > 0, thenValue('positive'))
+when(x).is((v) => v > 0, thenValue('positive'));
 ```
 
 #### `.isValue(expectedValue, result)`
@@ -235,7 +241,7 @@ when(x).is((v) => v > 0, thenValue('positive'))
 Matches when the value strictly equals the expected value using `===`.
 
 ```typescript
-when(x).isValue(42, 'the answer')
+when(x).isValue(42, 'the answer');
 ```
 
 #### `.isType(guard, producer)`
@@ -243,7 +249,7 @@ when(x).isValue(42, 'the answer')
 Matches when the type guard returns `true`, providing type narrowing.
 
 ```typescript
-when(value).isType(isString, (v) => v.toUpperCase())
+when(value).isType(isString, (v) => v.toUpperCase());
 ```
 
 #### `.isAny(predicates, producer)`
@@ -251,7 +257,7 @@ when(value).isType(isString, (v) => v.toUpperCase())
 Matches when any predicate in the array returns `true` (logical OR).
 
 ```typescript
-when(x).isAny([eq(1), eq(2), eq(3)], thenValue('one, two, or three'))
+when(x).isAny([eq(1), eq(2), eq(3)], thenValue('one, two, or three'));
 ```
 
 #### `.isAll(predicates, producer)`
@@ -259,7 +265,7 @@ when(x).isAny([eq(1), eq(2), eq(3)], thenValue('one, two, or three'))
 Matches when all predicates in the array return `true` (logical AND).
 
 ```typescript
-when(x).isAll([gt(0), lt(10)], thenValue('between 0 and 10'))
+when(x).isAll([gt(0), lt(10)], thenValue('between 0 and 10'));
 ```
 
 #### `.otherwise(producer)`
@@ -267,7 +273,7 @@ when(x).isAll([gt(0), lt(10)], thenValue('between 0 and 10'))
 Provides a default value when no predicates match. This is required to complete the pattern matching chain.
 
 ```typescript
-when(x).is(eq(1), thenValue('one')).otherwise(thenValue('other'))
+when(x).is(eq(1), thenValue('one')).otherwise(thenValue('other'));
 ```
 
 ### Helper Functions
@@ -277,7 +283,7 @@ when(x).is(eq(1), thenValue('one')).otherwise(thenValue('other'))
 Creates a constant producer function that always returns the given value.
 
 ```typescript
-when(x).is(eq(1), thenValue('one'))
+when(x).is(eq(1), thenValue('one'));
 ```
 
 ### Comparison Predicates
@@ -287,7 +293,7 @@ when(x).is(eq(1), thenValue('one'))
 Creates an equality comparison predicate (`===`).
 
 ```typescript
-when(x).is(eq(42), thenValue('matched'))
+when(x).is(eq(42), thenValue('matched'));
 ```
 
 #### `ne<T>(expected: T): (actual: T) => boolean`
@@ -295,7 +301,7 @@ when(x).is(eq(42), thenValue('matched'))
 Creates an inequality comparison predicate (`!==`).
 
 ```typescript
-when(x).is(ne(0), thenValue('not zero'))
+when(x).is(ne(0), thenValue('not zero'));
 ```
 
 #### `gt<T>(threshold: T): (value: T) => boolean`
@@ -303,7 +309,7 @@ when(x).is(ne(0), thenValue('not zero'))
 Creates a greater-than comparison predicate (`>`).
 
 ```typescript
-when(x).is(gt(0), thenValue('positive'))
+when(x).is(gt(0), thenValue('positive'));
 ```
 
 #### `lt<T>(threshold: T): (value: T) => boolean`
@@ -311,7 +317,7 @@ when(x).is(gt(0), thenValue('positive'))
 Creates a less-than comparison predicate (`<`).
 
 ```typescript
-when(x).is(lt(0), thenValue('negative'))
+when(x).is(lt(0), thenValue('negative'));
 ```
 
 #### `ge<T>(threshold: T): (value: T) => boolean`
@@ -319,7 +325,7 @@ when(x).is(lt(0), thenValue('negative'))
 Creates a greater-than-or-equal comparison predicate (`>=`).
 
 ```typescript
-when(x).is(ge(0), thenValue('non-negative'))
+when(x).is(ge(0), thenValue('non-negative'));
 ```
 
 #### `le<T>(threshold: T): (value: T) => boolean`
@@ -327,7 +333,7 @@ when(x).is(ge(0), thenValue('non-negative'))
 Creates a less-than-or-equal comparison predicate (`<=`).
 
 ```typescript
-when(x).is(le(10), thenValue('at most ten'))
+when(x).is(le(10), thenValue('at most ten'));
 ```
 
 ### Range Predicates
@@ -337,7 +343,7 @@ when(x).is(le(10), thenValue('at most ten'))
 Creates a predicate that checks if a value is within a range (inclusive).
 
 ```typescript
-when(score).is(between(0, 100), thenValue('valid score'))
+when(score).is(between(0, 100), thenValue('valid score'));
 ```
 
 #### `betweenExclusive<T>(min: T, max: T): (value: T) => boolean`
@@ -345,7 +351,7 @@ when(score).is(between(0, 100), thenValue('valid score'))
 Creates a predicate that checks if a value is within a range (exclusive).
 
 ```typescript
-when(age).is(betweenExclusive(18, 65), thenValue('working age'))
+when(age).is(betweenExclusive(18, 65), thenValue('working age'));
 ```
 
 ### Array Predicates
@@ -355,7 +361,7 @@ when(age).is(betweenExclusive(18, 65), thenValue('working age'))
 Creates a predicate that checks if a value is included in an array.
 
 ```typescript
-when(status).is(oneOf(['active', 'pending', 'approved']), thenValue('valid status'))
+when(status).is(oneOf(['active', 'pending', 'approved']), thenValue('valid status'));
 ```
 
 #### `noneOf<T>(values: readonly T[]): (value: T) => boolean`
@@ -363,7 +369,7 @@ when(status).is(oneOf(['active', 'pending', 'approved']), thenValue('valid statu
 Creates a predicate that checks if a value is not included in an array.
 
 ```typescript
-when(status).is(noneOf(['deleted', 'archived']), thenValue('active status'))
+when(status).is(noneOf(['deleted', 'archived']), thenValue('active status'));
 ```
 
 ### Type Guard Predicates
@@ -373,7 +379,7 @@ when(status).is(noneOf(['deleted', 'archived']), thenValue('active status'))
 Type guard for string values.
 
 ```typescript
-when(value).isType(isString, (v) => v.toUpperCase())
+when(value).isType(isString, (v) => v.toUpperCase());
 ```
 
 #### `isNumber(value: unknown): value is number`
@@ -381,7 +387,7 @@ when(value).isType(isString, (v) => v.toUpperCase())
 Type guard for number values.
 
 ```typescript
-when(value).isType(isNumber, (v) => v.toFixed(2))
+when(value).isType(isNumber, (v) => v.toFixed(2));
 ```
 
 #### `isBoolean(value: unknown): value is boolean`
@@ -389,7 +395,7 @@ when(value).isType(isNumber, (v) => v.toFixed(2))
 Type guard for boolean values.
 
 ```typescript
-when(value).isType(isBoolean, (v) => v ? 'yes' : 'no')
+when(value).isType(isBoolean, (v) => (v ? 'yes' : 'no'));
 ```
 
 #### `isNull(value: unknown): value is null`
@@ -397,7 +403,7 @@ when(value).isType(isBoolean, (v) => v ? 'yes' : 'no')
 Type guard for null values.
 
 ```typescript
-when(value).isType(isNull, () => 'is null')
+when(value).isType(isNull, () => 'is null');
 ```
 
 #### `isUndefined(value: unknown): value is undefined`
@@ -405,7 +411,7 @@ when(value).isType(isNull, () => 'is null')
 Type guard for undefined values.
 
 ```typescript
-when(value).isType(isUndefined, () => 'is undefined')
+when(value).isType(isUndefined, () => 'is undefined');
 ```
 
 ### Logical Combinators
@@ -415,7 +421,7 @@ when(value).isType(isUndefined, () => 'is undefined')
 Combines multiple predicates with logical AND. All predicates must return `true`.
 
 ```typescript
-when(x).is(all([gt(0), lt(10)]), thenValue('between 0 and 10'))
+when(x).is(all([gt(0), lt(10)]), thenValue('between 0 and 10'));
 ```
 
 #### `any<T>(predicates: readonly ((value: T) => boolean)[]): (value: T) => boolean`
@@ -423,7 +429,7 @@ when(x).is(all([gt(0), lt(10)]), thenValue('between 0 and 10'))
 Combines multiple predicates with logical OR. At least one predicate must return `true`.
 
 ```typescript
-when(x).is(any([eq(1), eq(2), eq(3)]), thenValue('one, two, or three'))
+when(x).is(any([eq(1), eq(2), eq(3)]), thenValue('one, two, or three'));
 ```
 
 #### `not<T>(predicate: (value: T) => boolean): (value: T) => boolean`
@@ -431,7 +437,7 @@ when(x).is(any([eq(1), eq(2), eq(3)]), thenValue('one, two, or three'))
 Negates a predicate, returning the opposite boolean value.
 
 ```typescript
-when(x).is(not(eq(0)), thenValue('not zero'))
+when(x).is(not(eq(0)), thenValue('not zero'));
 ```
 
 ### Exhaustiveness Checking
@@ -456,6 +462,7 @@ const getMessage = (status: Status): string =>
 ### Type Safety
 
 This library provides full TypeScript type safety with:
+
 - Type narrowing through type guards
 - Exhaustiveness checking for union types
 - Compile-time validation of pattern completeness
@@ -467,6 +474,7 @@ Pattern matching evaluation is short-circuit: once a predicate matches, subseque
 ### Comparison with Native Switch
 
 Unlike native JavaScript `switch` statements, `switch-ts` provides:
+
 - Type-safe pattern matching with type narrowing
 - First-class support for complex predicates
 - Exhaustiveness checking at compile time

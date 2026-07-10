@@ -65,7 +65,8 @@ const chain = <T, R>(value: T): Chain<T, R> => ({
   isType: <U extends T>(guard: TypeGuard<T, U>, producer: (v: U) => R) =>
     guard(value) ? match<T, R>(producer(value)) : chain<T, R>(value),
 
-  isAny: (predicates, producer) => (predicates.some((pred) => pred(value)) ? match(producer()) : chain<T, R>(value)),
+  isAny: (predicates, producer) =>
+    predicates.some((pred) => pred(value)) ? match(producer()) : chain<T, R>(value),
 
   isAll: (predicates, producer) =>
     predicates.every((pred) => pred(value)) ? match(producer()) : chain<T, R>(value),

@@ -2,7 +2,29 @@
   "name": "switch-ts",
   "version": "3.0.0",
   "description": "Switch-case with support for complex conditions for TypeScript",
+  "keywords": [
+    "case",
+    "default",
+    "is",
+    "switch",
+    "typescript",
+    "when"
+  ],
+  "homepage": "https://github.com/seijikohara/switch-ts#readme",
+  "bugs": {
+    "url": "https://github.com/seijikohara/switch-ts/issues"
+  },
+  "license": "MIT",
+  "author": "Seiji Kohara <sage.0118@gmail.com> (https://github.com/seijikohara)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/seijikohara/switch-ts.git"
+  },
+  "files": [
+    "dist"
+  ],
   "type": "module",
+  "sideEffects": false,
   "main": "./dist/index.mjs",
   "types": "./dist/index.d.mts",
   "exports": {
@@ -12,10 +34,6 @@
     },
     "./package.json": "./package.json"
   },
-  "files": [
-    "dist"
-  ],
-  "sideEffects": false,
   "scripts": {
     "build": "tsdown",
     "check:package": "publint && pnpm pack --out package.tgz && attw package.tgz --profile esm-only; ec=$?; rm -f package.tgz; exit $ec",
@@ -31,32 +49,6 @@
     "deps:check": "taze",
     "prepublishOnly": "pnpm run build"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/seijikohara/switch-ts.git"
-  },
-  "keywords": [
-    "switch",
-    "case",
-    "when",
-    "is",
-    "default",
-    "typescript"
-  ],
-  "author": "Seiji Kohara <sage.0118@gmail.com> (https://github.com/seijikohara)",
-  "license": "MIT",
-  "packageManager": "pnpm@11.11.0",
-  "devEngines": {
-    "packageManager": {
-      "name": "pnpm",
-      "version": "11.11.0",
-      "onFail": "download"
-    }
-  },
-  "bugs": {
-    "url": "https://github.com/seijikohara/switch-ts/issues"
-  },
-  "homepage": "https://github.com/seijikohara/switch-ts#readme",
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.18.5",
     "@vitest/coverage-v8": "^4.1.10",
@@ -68,5 +60,13 @@
     "tsdown": "^0.22.4",
     "typescript": "^7.0.2",
     "vitest": "^4.1.10"
-  }
+  },
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "11.11.0",
+      "onFail": "download"
+    }
+  },
+  "packageManager": "pnpm@11.11.0"
 }

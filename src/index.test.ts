@@ -38,11 +38,11 @@ describe('when() - Pattern matching', () => {
       const result = when(1)
         .is(
           (v) => v === 1,
-          () => 'one',
+          () => 'one'
         )
         .is(
           (v) => v === 2,
-          () => 'two',
+          () => 'two'
         )
         .otherwise(() => 'other');
 
@@ -53,11 +53,11 @@ describe('when() - Pattern matching', () => {
       const result = when(2)
         .is(
           (v) => v === 1,
-          () => 'one',
+          () => 'one'
         )
         .is(
           (v) => v === 2,
-          () => 'two',
+          () => 'two'
         )
         .otherwise(() => 'other');
 
@@ -68,11 +68,11 @@ describe('when() - Pattern matching', () => {
       const result = when(3)
         .is(
           (v) => v === 1,
-          () => 'one',
+          () => 'one'
         )
         .is(
           (v) => v === 2,
-          () => 'two',
+          () => 'two'
         )
         .otherwise(() => 'other');
 
@@ -86,11 +86,11 @@ describe('when() - Pattern matching', () => {
       const result = when(1)
         .is(
           (v) => v === 1,
-          () => mockProducer(),
+          () => mockProducer()
         )
         .is(
           (v) => v === 1,
-          () => mockSecondProducer(),
+          () => mockSecondProducer()
         )
         .otherwise(() => 'default');
 
@@ -102,7 +102,10 @@ describe('when() - Pattern matching', () => {
 
   describe('Value matching with .isValue()', () => {
     it('should match exact value', () => {
-      const result = when(2).isValue(1, 'one').isValue(2, 'two').otherwise(() => 'other');
+      const result = when(2)
+        .isValue(1, 'one')
+        .isValue(2, 'two')
+        .otherwise(() => 'other');
 
       expect(result).toBe('two');
     });
@@ -125,7 +128,10 @@ describe('when() - Pattern matching', () => {
     });
 
     it('should match boolean values correctly', () => {
-      const result = when(true).isValue(false, 'no').isValue(true, 'yes').otherwise(() => 'unknown');
+      const result = when(true)
+        .isValue(false, 'no')
+        .isValue(true, 'yes')
+        .otherwise(() => 'unknown');
 
       expect(result).toBe('yes');
     });
@@ -147,7 +153,7 @@ describe('when() - Pattern matching', () => {
       const result = when(value)
         .isType(
           (v: string | number): v is string => typeof v === 'string',
-          (v) => `String: ${v.toUpperCase()}`,
+          (v) => `String: ${v.toUpperCase()}`
         )
         .otherwise(() => 'not a string');
 
@@ -160,7 +166,7 @@ describe('when() - Pattern matching', () => {
       const result = when(value)
         .isType(
           (v: string | number): v is number => typeof v === 'number',
-          (v) => `Number: ${v.toFixed(2)}`,
+          (v) => `Number: ${v.toFixed(2)}`
         )
         .otherwise(() => 'not a number');
 
@@ -174,7 +180,7 @@ describe('when() - Pattern matching', () => {
       const result = when(successResponse)
         .isType(
           (v: Response): v is { status: 'success'; data: string } => v.status === 'success',
-          (v) => `Success: ${v.data}`,
+          (v) => `Success: ${v.data}`
         )
         .otherwise(() => 'Unknown response');
 
@@ -188,7 +194,7 @@ describe('when() - Pattern matching', () => {
       const result = when(errorResponse)
         .isType(
           (v: Response): v is { status: 'error'; message: string } => v.status === 'error',
-          (v) => `Error: ${v.message}`,
+          (v) => `Error: ${v.message}`
         )
         .otherwise(() => 'Unknown response');
 
@@ -199,10 +205,7 @@ describe('when() - Pattern matching', () => {
   describe('Multiple predicate matching with .isAny()', () => {
     it('should match when any predicate returns true', () => {
       const result = when(5)
-        .isAny(
-          [(v) => v === 3, (v) => v === 5, (v) => v === 7],
-          () => 'odd prime',
-        )
+        .isAny([(v) => v === 3, (v) => v === 5, (v) => v === 7], () => 'odd prime')
         .otherwise(() => 'other');
 
       expect(result).toBe('odd prime');
@@ -210,10 +213,7 @@ describe('when() - Pattern matching', () => {
 
     it('should not match when all predicates return false', () => {
       const result = when(4)
-        .isAny(
-          [(v) => v === 3, (v) => v === 5, (v) => v === 7],
-          () => 'odd prime',
-        )
+        .isAny([(v) => v === 3, (v) => v === 5, (v) => v === 7], () => 'odd prime')
         .otherwise(() => 'other');
 
       expect(result).toBe('other');
@@ -221,10 +221,7 @@ describe('when() - Pattern matching', () => {
 
     it('should match on first true predicate', () => {
       const result = when(3)
-        .isAny(
-          [(v) => v === 3, (v) => v === 5, (v) => v === 7],
-          () => 'matched',
-        )
+        .isAny([(v) => v === 3, (v) => v === 5, (v) => v === 7], () => 'matched')
         .otherwise(() => 'not matched');
 
       expect(result).toBe('matched');
@@ -236,7 +233,7 @@ describe('when() - Pattern matching', () => {
       const result = when(6)
         .isAll(
           [(v) => v > 0, (v) => v < 10, (v) => v % 2 === 0],
-          () => 'positive even single-digit',
+          () => 'positive even single-digit'
         )
         .otherwise(() => 'other');
 
@@ -247,7 +244,7 @@ describe('when() - Pattern matching', () => {
       const result = when(5)
         .isAll(
           [(v) => v > 0, (v) => v < 10, (v) => v % 2 === 0],
-          () => 'positive even single-digit',
+          () => 'positive even single-digit'
         )
         .otherwise(() => 'other');
 
@@ -269,12 +266,9 @@ describe('when() - Pattern matching', () => {
         .isValue(1, 'one')
         .is(
           (v) => v === 2,
-          () => 'two',
+          () => 'two'
         )
-        .isAll(
-          [(v) => v > 3, (v) => v < 6],
-          () => 'between 3 and 6',
-        )
+        .isAll([(v) => v > 3, (v) => v < 6], () => 'between 3 and 6')
         .otherwise(() => 'other');
 
       expect(result).toBe('between 3 and 6');
@@ -285,7 +279,7 @@ describe('when() - Pattern matching', () => {
         .isValue(5, 'exact match')
         .is(
           (v) => v === 5,
-          () => 'predicate match',
+          () => 'predicate match'
         )
         .otherwise(() => 'default');
 
@@ -392,7 +386,9 @@ describe('Helper functions', () => {
     });
 
     it('should work with when()', () => {
-      const result = when(10).is(ge(10), thenValue('greater or equal')).otherwise(thenValue('less'));
+      const result = when(10)
+        .is(ge(10), thenValue('greater or equal'))
+        .otherwise(thenValue('less'));
 
       expect(result).toBe('greater or equal');
     });
@@ -407,7 +403,9 @@ describe('Helper functions', () => {
     });
 
     it('should work with when()', () => {
-      const result = when(10).is(le(10), thenValue('less or equal')).otherwise(thenValue('greater'));
+      const result = when(10)
+        .is(le(10), thenValue('less or equal'))
+        .otherwise(thenValue('greater'));
 
       expect(result).toBe('less or equal');
     });
@@ -573,7 +571,9 @@ describe('Predicate combinators', () => {
     });
 
     it('should work with when()', () => {
-      const result = when(5).is(not(eq(0)), thenValue('not zero')).otherwise(thenValue('zero'));
+      const result = when(5)
+        .is(not(eq(0)), thenValue('not zero'))
+        .otherwise(thenValue('zero'));
 
       expect(result).toBe('not zero');
     });
@@ -619,7 +619,7 @@ describe('Real-world use cases', () => {
               .is(lt(0), thenValue('Age cannot be negative'))
               .is(all([ge(0), lt(18)]), thenValue('Must be 18 or older'))
               .is(gt(120), thenValue('Invalid age'))
-              .otherwise(thenValue('Valid')),
+              .otherwise(thenValue('Valid'))
         )
         .otherwise(() => 'Age must be a number');
 
@@ -642,22 +642,28 @@ describe('Real-world use cases', () => {
       when(state)
         .isValue(
           'idle',
-          when(action).isValue('start', 'loading' as State).otherwise(() => state),
+          when(action)
+            .isValue('start', 'loading' as State)
+            .otherwise(() => state)
         )
         .isValue(
           'loading',
           when(action)
             .isValue('resolve', 'success' as State)
             .isValue('reject', 'error' as State)
-            .otherwise(() => state),
+            .otherwise(() => state)
         )
         .isValue(
           'success',
-          when(action).isValue('reset', 'idle' as State).otherwise(() => state),
+          when(action)
+            .isValue('reset', 'idle' as State)
+            .otherwise(() => state)
         )
         .isValue(
           'error',
-          when(action).isValue('reset', 'idle' as State).otherwise(() => state),
+          when(action)
+            .isValue('reset', 'idle' as State)
+            .otherwise(() => state)
         )
         .otherwise(() => state);
 
@@ -696,7 +702,9 @@ describe('New helper functions', () => {
       [-1, 'out'],
       [101, 'out'],
     ])('should evaluate betweenExclusive(0, 100) for %i as %s', (value, expected) => {
-      const result = when(value).is(betweenExclusive(0, 100), thenValue('in')).otherwise(thenValue('out'));
+      const result = when(value)
+        .is(betweenExclusive(0, 100), thenValue('in'))
+        .otherwise(thenValue('out'));
       expect(result).toBe(expected);
     });
   });
@@ -716,7 +724,9 @@ describe('New helper functions', () => {
       [3, 'prime'],
       [4, 'not prime'],
     ])('should evaluate oneOf for number %i as %s', (value, expected) => {
-      const result = when(value).is(oneOf([2, 3, 5, 7]), thenValue('prime')).otherwise(thenValue('not prime'));
+      const result = when(value)
+        .is(oneOf([2, 3, 5, 7]), thenValue('prime'))
+        .otherwise(thenValue('not prime'));
       expect(result).toBe(expected);
     });
   });
@@ -770,13 +780,21 @@ describe('Edge cases', () => {
   it.each([
     [NaN, (v: number) => Number.isNaN(v), 'is NaN', 'not NaN', 'is NaN'],
     [Infinity, (v: number) => v === Infinity, 'infinity', 'not infinity', 'infinity'],
-  ])('should handle %p special numeric values', (input, predicate, trueBranch, falseBranch, expected) => {
-    const result = when(input).is(predicate, () => trueBranch).otherwise(() => falseBranch);
-    expect(result).toBe(expected);
-  });
+  ])(
+    'should handle %p special numeric values',
+    (input, predicate, trueBranch, falseBranch, expected) => {
+      const result = when(input)
+        .is(predicate, () => trueBranch)
+        .otherwise(() => falseBranch);
+      expect(result).toBe(expected);
+    }
+  );
 
   it('should handle empty string', () => {
-    const result = when('').isValue('', 'empty').isValue('hello', 'hello').otherwise(() => 'other');
+    const result = when('')
+      .isValue('', 'empty')
+      .isValue('hello', 'hello')
+      .otherwise(() => 'other');
     expect(result).toBe('empty');
   });
 
@@ -789,11 +807,11 @@ describe('Edge cases', () => {
       when(v)
         .is(
           (x) => Object.is(x, 0),
-          () => 'positive zero',
+          () => 'positive zero'
         )
         .is(
           (x) => Object.is(x, -0),
-          () => 'negative zero',
+          () => 'negative zero'
         )
         .otherwise(() => 'not zero');
 
