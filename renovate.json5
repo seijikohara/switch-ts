@@ -48,18 +48,24 @@
     {
       description: 'Group linting and formatting tools',
       groupName: 'linting and formatting',
-      matchPackageNames: [
-        'eslint',
-        '@eslint/*',
-        'eslint-config-*',
-        'prettier',
-        'typescript-eslint',
-      ],
+      matchPackageNames: ['oxlint', 'oxfmt', 'oxlint-tsgolint', '@oxlint/*'],
     },
     {
       description: 'Group the test toolchain',
       groupName: 'testing',
-      matchPackageNames: ['jest', 'ts-jest', 'npm-run-all'],
+      matchPackageNames: ['vitest', '@vitest/*'],
+    },
+    {
+      description: 'Group the build toolchain',
+      groupName: 'build toolchain',
+      matchPackageNames: [
+        'typescript',
+        'tsdown',
+        'lefthook',
+        'publint',
+        '@arethetypeswrong/*',
+        'taze',
+      ],
     },
     {
       description: 'Group TypeScript type definitions',
