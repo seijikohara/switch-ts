@@ -1,9 +1,22 @@
 {
   "name": "switch-ts",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "Switch-case with support for complex conditions for TypeScript",
-  "main": "src/index.ts",
+  "type": "module",
+  "main": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.mts",
+      "default": "./dist/index.mjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": ["dist"],
+  "sideEffects": false,
   "scripts": {
+    "build": "tsdown",
+    "check:package": "publint && pnpm pack --out package.tgz && attw package.tgz --profile esm-only; ec=$?; rm -f package.tgz; exit $ec",
     "typecheck": "tsc --noEmit",
     "format": "prettier --write 'src/**/*.{js,ts,json}'",
     "eslint": "eslint .",
@@ -14,7 +27,8 @@
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
     "deps:update": "taze -w && pnpm install",
-    "deps:check": "taze"
+    "deps:check": "taze",
+    "prepublishOnly": "pnpm run build"
   },
   "repository": {
     "type": "git",
@@ -43,13 +57,16 @@
   },
   "homepage": "https://github.com/seijikohara/switch-ts#readme",
   "devDependencies": {
+    "@arethetypeswrong/cli": "^0.18.5",
     "@eslint/js": "10.0.1",
     "@vitest/coverage-v8": "^4.1.10",
     "eslint": "10.6.0",
     "eslint-config-prettier": "10.1.8",
     "npm-run-all2": "^9.0.0",
     "prettier": "3.9.4",
+    "publint": "^0.3.21",
     "taze": "^19.14.1",
+    "tsdown": "^0.22.4",
     "typescript": "^7.0.2",
     "typescript-eslint": "8.62.1",
     "vitest": "^4.1.10"
