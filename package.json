@@ -4,13 +4,12 @@
   "description": "Switch-case with support for complex conditions for TypeScript",
   "main": "src/index.ts",
   "scripts": {
-    "check-types": "tsc --noEmit",
-    "declaration": "tsc --declaration",
+    "typecheck": "tsc --noEmit",
     "format": "prettier --write 'src/**/*.{js,ts,json}'",
     "eslint": "eslint .",
     "eslint:fix": "eslint . --fix",
-    "lint": "npm-run-all eslint check-types",
-    "lint:fix": "npm-run-all eslint:fix check-types format",
+    "lint": "npm-run-all typecheck",
+    "lint:fix": "npm-run-all eslint:fix typecheck format",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
@@ -51,7 +50,7 @@
     "npm-run-all2": "^9.0.0",
     "prettier": "3.9.4",
     "taze": "^19.14.1",
-    "typescript": "^6.0.2",
+    "typescript": "^7.0.2",
     "typescript-eslint": "8.62.1",
     "vitest": "^4.1.10"
   }
