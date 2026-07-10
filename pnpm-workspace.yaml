@@ -5,4 +5,4 @@ minimumReleaseAgeExclude:
 
 # Packages allowed to run install scripts (pnpm 11 blocks by default).
 allowBuilds:
-  - lefthook
+  lefthook: true
