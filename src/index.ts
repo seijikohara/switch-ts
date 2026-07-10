@@ -15,7 +15,7 @@ type TypeGuard<T, U extends T> = (value: T) => value is U;
  */
 type When<T> = {
   is: <R>(predicate: (value: T) => boolean, producer: () => R) => Chain<T, R>;
-  isValue: <V extends T, R>(expectedValue: V, result: R) => Chain<T, R>;
+  isValue: <R>(expectedValue: T, result: R) => Chain<T, R>;
   isType: <U extends T, R>(guard: TypeGuard<T, U>, producer: (value: U) => R) => Chain<T, R>;
   isAny: <R>(predicates: readonly ((value: T) => boolean)[], producer: () => R) => Chain<T, R>;
   isAll: <R>(predicates: readonly ((value: T) => boolean)[], producer: () => R) => Chain<T, R>;
@@ -28,7 +28,7 @@ type When<T> = {
  */
 type Chain<T, R> = {
   is: (predicate: (value: T) => boolean, producer: () => R) => Chain<T, R>;
-  isValue: <V extends T>(expectedValue: V, result: R) => Chain<T, R>;
+  isValue: (expectedValue: T, result: R) => Chain<T, R>;
   isType: <U extends T>(guard: TypeGuard<T, U>, producer: (value: U) => R) => Chain<T, R>;
   isAny: (predicates: readonly ((value: T) => boolean)[], producer: () => R) => Chain<T, R>;
   isAll: (predicates: readonly ((value: T) => boolean)[], producer: () => R) => Chain<T, R>;
@@ -59,7 +59,7 @@ const match = <T, R>(value: R): Chain<T, R> => ({
 const chain = <T, R>(value: T): Chain<T, R> => ({
   is: (predicate, producer) => (predicate(value) ? match(producer()) : chain<T, R>(value)),
 
-  isValue: <V extends T>(expectedValue: V, result: R) =>
+  isValue: (expectedValue: T, result: R) =>
     value === expectedValue ? match<T, R>(result) : chain<T, R>(value),
 
   isType: <U extends T>(guard: TypeGuard<T, U>, producer: (v: U) => R) =>
@@ -116,7 +116,7 @@ export const when = <T>(value: T): When<T> => ({
   is: <R>(predicate: (v: T) => boolean, producer: () => R) =>
     predicate(value) ? match<T, R>(producer()) : chain<T, R>(value),
 
-  isValue: <V extends T, R>(expectedValue: V, result: R) =>
+  isValue: <R>(expectedValue: T, result: R) =>
     value === expectedValue ? match<T, R>(result) : chain<T, R>(value),
 
   isType: <U extends T, R>(guard: TypeGuard<T, U>, producer: (v: U) => R) =>

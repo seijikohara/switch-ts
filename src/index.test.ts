@@ -588,6 +588,7 @@ describe('Predicate combinators', () => {
 
 describe('Real-world use cases', () => {
   describe('HTTP status code handling', () => {
+    // oxlint-disable-next-line unicorn/consistent-function-scoping -- kept local to the describe block for readability; runs once at collection time, not per test
     const getStatusCategory = (status: number) =>
       when(status)
         .is(all([ge(200), lt(300)]), thenValue('Success'))
@@ -608,6 +609,7 @@ describe('Real-world use cases', () => {
   });
 
   describe('Form validation', () => {
+    // oxlint-disable-next-line unicorn/consistent-function-scoping -- kept local to the describe block for readability; runs once at collection time, not per test
     const validateAge = (age: unknown) =>
       when(age)
         .isType(
@@ -737,6 +739,7 @@ describe('New helper functions', () => {
       [{ type: 'unknown' }, 'Unhandled case:'],
     ])('should throw error for %p', (value, expectedMessage) => {
       expect(() => {
+        // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- deliberately forcing a non-never value through exhaustive() to test its runtime guard
         exhaustive(value as never);
       }).toThrow(expectedMessage);
     });
@@ -747,6 +750,7 @@ describe('New helper functions', () => {
       // TypeScript will show a compile error
       type Status = 'pending' | 'approved' | 'rejected';
 
+      // oxlint-disable-next-line unicorn/consistent-function-scoping -- kept local to this test to pair with the Status type declared above it
       const getMessage = (status: Status): string => {
         if (status === 'pending') return 'Waiting';
         if (status === 'approved') return 'Approved';
@@ -780,6 +784,7 @@ describe('Edge cases', () => {
     [0, 'positive zero'],
     [-0, 'negative zero'],
   ])('should handle %p zero values', (value, expected) => {
+    // oxlint-disable-next-line unicorn/consistent-function-scoping -- kept local to this parameterized test case for readability
     const checkZero = (v: number) =>
       when(v)
         .is(

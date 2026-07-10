@@ -12,17 +12,18 @@
     },
     "./package.json": "./package.json"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "sideEffects": false,
   "scripts": {
     "build": "tsdown",
     "check:package": "publint && pnpm pack --out package.tgz && attw package.tgz --profile esm-only; ec=$?; rm -f package.tgz; exit $ec",
     "typecheck": "tsc --noEmit",
-    "format": "prettier --write 'src/**/*.{js,ts,json}'",
-    "eslint": "eslint .",
-    "eslint:fix": "eslint . --fix",
-    "lint": "npm-run-all typecheck",
-    "lint:fix": "npm-run-all eslint:fix typecheck format",
+    "lint": "oxlint --type-aware",
+    "lint:fix": "oxlint --type-aware --fix",
+    "format": "oxfmt",
+    "format:check": "oxfmt --check",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
@@ -58,17 +59,14 @@
   "homepage": "https://github.com/seijikohara/switch-ts#readme",
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.18.5",
-    "@eslint/js": "10.0.1",
     "@vitest/coverage-v8": "^4.1.10",
-    "eslint": "10.6.0",
-    "eslint-config-prettier": "10.1.8",
-    "npm-run-all2": "^9.0.0",
-    "prettier": "3.9.4",
+    "oxfmt": "^0.58.0",
+    "oxlint": "^1.73.0",
+    "oxlint-tsgolint": "^0.24.0",
     "publint": "^0.3.21",
     "taze": "^19.14.1",
     "tsdown": "^0.22.4",
     "typescript": "^7.0.2",
-    "typescript-eslint": "8.62.1",
     "vitest": "^4.1.10"
   }
 }
