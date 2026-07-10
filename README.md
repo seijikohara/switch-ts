@@ -2,7 +2,7 @@
 
 [![npm version](https://img.shields.io/npm/v/switch-ts.svg)](https://www.npmjs.com/package/switch-ts)
 [![CI](https://img.shields.io/github/actions/workflow/status/seijikohara/switch-ts/node.js.yml?branch=main&label=CI)](https://github.com/seijikohara/switch-ts/actions/workflows/node.js.yml)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue.svg)](https://www.typescriptlang.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-7.x-blue.svg)](https://www.typescriptlang.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 A TypeScript library for pattern matching with full type safety and exhaustiveness checking.
@@ -14,6 +14,9 @@ This library provides a declarative, fluent interface for implementing pattern m
 ```bash
 npm install switch-ts
 ```
+
+> `switch-ts` v3 is an ESM-only package. Use `import` syntax; on CommonJS,
+> Node.js >= 20.19 can load it via `require()` (require(esm)).
 
 ## Usage
 
