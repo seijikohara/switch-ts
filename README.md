@@ -237,7 +237,9 @@ when(value)
 Matches when the predicate returns `true`.
 
 ```typescript
-when(x).is((v) => v > 0, thenValue('positive'));
+when(x)
+  .is((v) => v > 0, thenValue('positive'))
+  .otherwise(thenValue('non-positive'));
 ```
 
 #### `.isValue(expectedValue, result)`
@@ -245,7 +247,9 @@ when(x).is((v) => v > 0, thenValue('positive'));
 Matches when the value strictly equals the expected value using `===`.
 
 ```typescript
-when(x).isValue(42, 'the answer');
+when(x)
+  .isValue(42, 'the answer')
+  .otherwise(() => 'other');
 ```
 
 #### `.isType(guard, producer)`
@@ -253,7 +257,9 @@ when(x).isValue(42, 'the answer');
 Matches when the type guard returns `true`, providing type narrowing.
 
 ```typescript
-when(value).isType(isString, (v) => v.toUpperCase());
+when(value)
+  .isType(isString, (v) => v.toUpperCase())
+  .otherwise(() => 'not a string');
 ```
 
 #### `.isAny(predicates, producer)`
@@ -261,7 +267,9 @@ when(value).isType(isString, (v) => v.toUpperCase());
 Matches when any predicate in the array returns `true` (logical OR).
 
 ```typescript
-when(x).isAny([eq(1), eq(2), eq(3)], thenValue('one, two, or three'));
+when(x)
+  .isAny([eq(1), eq(2), eq(3)], thenValue('one, two, or three'))
+  .otherwise(thenValue('none of the three'));
 ```
 
 #### `.isAll(predicates, producer)`
@@ -269,7 +277,9 @@ when(x).isAny([eq(1), eq(2), eq(3)], thenValue('one, two, or three'));
 Matches when all predicates in the array return `true` (logical AND).
 
 ```typescript
-when(x).isAll([gt(0), lt(10)], thenValue('between 0 and 10'));
+when(x)
+  .isAll([gt(0), lt(10)], thenValue('between 0 and 10'))
+  .otherwise(thenValue('out of range'));
 ```
 
 #### `.otherwise(producer)`
