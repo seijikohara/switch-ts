@@ -47,7 +47,7 @@
     "test:coverage": "vitest run --coverage",
     "deps:update": "taze -w && pnpm install",
     "deps:check": "taze",
-    "prepare": "lefthook install || true",
+    "prepare": "lefthook install || exit 0",
     "prepublishOnly": "pnpm run build"
   },
   "devDependencies": {
