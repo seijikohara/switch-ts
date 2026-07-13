@@ -144,7 +144,9 @@ export const when = <T>(value: T): When<T> => ({
  *
  * @example
  * ```typescript
- * when(x).is(eq(1), thenValue('one'))
+ * when(x)
+ *   .is(eq(1), thenValue('one'))
+ *   .otherwise(thenValue('other'))
  * ```
  */
 export const thenValue =
@@ -166,7 +168,9 @@ export const thenValue =
  *
  * @example
  * ```typescript
- * when(x).is(eq(1), thenValue('one'))
+ * when(x)
+ *   .is(eq(1), thenValue('one'))
+ *   .otherwise(thenValue('other'))
  * // Checks if x === 1
  * ```
  */
@@ -185,7 +189,9 @@ export const eq =
  *
  * @example
  * ```typescript
- * when(x).is(ne(1), thenValue('not one'))
+ * when(x)
+ *   .is(ne(1), thenValue('not one'))
+ *   .otherwise(thenValue('one'))
  * // Checks if x !== 1
  * ```
  */
@@ -206,7 +212,9 @@ export const ne =
  *
  * @example
  * ```typescript
- * when(x).is(gt(0), thenValue('positive'))
+ * when(x)
+ *   .is(gt(0), thenValue('positive'))
+ *   .otherwise(thenValue('non-positive'))
  * // Checks if x > 0
  * ```
  */
@@ -227,7 +235,9 @@ export const gt =
  *
  * @example
  * ```typescript
- * when(x).is(lt(0), thenValue('negative'))
+ * when(x)
+ *   .is(lt(0), thenValue('negative'))
+ *   .otherwise(thenValue('non-negative'))
  * // Checks if x < 0
  * ```
  */
@@ -248,7 +258,9 @@ export const lt =
  *
  * @example
  * ```typescript
- * when(x).is(ge(0), thenValue('non-negative'))
+ * when(x)
+ *   .is(ge(0), thenValue('non-negative'))
+ *   .otherwise(thenValue('negative'))
  * // Checks if x >= 0
  * ```
  */
@@ -269,7 +281,9 @@ export const ge =
  *
  * @example
  * ```typescript
- * when(x).is(le(10), thenValue('at most ten'))
+ * when(x)
+ *   .is(le(10), thenValue('at most ten'))
+ *   .otherwise(thenValue('more than ten'))
  * // Checks if x <= 10
  * ```
  */
