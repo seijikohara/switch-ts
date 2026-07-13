@@ -63,13 +63,6 @@
     "typescript": "^7.0.2",
     "vitest": "^4.1.10"
   },
-  "devEngines": {
-    "packageManager": {
-      "name": "pnpm",
-      "version": "11.11.0",
-      "onFail": "download"
-    }
-  },
   "engines": {
     "node": "^20.19.0 || >=22.12.0"
   },
