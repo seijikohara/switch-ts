@@ -1,49 +1,77 @@
 {
   "name": "switch-ts",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "Switch-case with support for complex conditions for TypeScript",
-  "main": "src/index.ts",
-  "scripts": {
-    "check-types": "tsc --noEmit",
-    "declaration": "tsc --declaration",
-    "format": "prettier --write 'src/**/*.{js,ts,json}'",
-    "eslint": "eslint .",
-    "eslint:fix": "eslint . --fix",
-    "lint": "npm-run-all eslint check-types",
-    "lint:fix": "npm-run-all eslint:fix check-types format",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "deps:update": "npx npm-check-updates -u && npm install",
-    "deps:check": "npx npm-check-updates"
+  "keywords": [
+    "case",
+    "default",
+    "is",
+    "switch",
+    "typescript",
+    "when"
+  ],
+  "homepage": "https://github.com/seijikohara/switch-ts#readme",
+  "bugs": {
+    "url": "https://github.com/seijikohara/switch-ts/issues"
   },
+  "license": "MIT",
+  "author": "Seiji Kohara <sage.0118@gmail.com> (https://github.com/seijikohara)",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/seijikohara/switch-ts.git"
   },
-  "keywords": [
-    "switch",
-    "case",
-    "when",
-    "is",
-    "default",
-    "typescript"
+  "files": [
+    "dist"
   ],
-  "author": "Seiji Kohara <sage.0118@gmail.com> (https://github.com/seijikohara)",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/seijikohara/switch-ts/issues"
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.mts",
+      "default": "./dist/index.mjs"
+    },
+    "./package.json": "./package.json"
   },
-  "homepage": "https://github.com/seijikohara/switch-ts#readme",
+  "scripts": {
+    "build": "tsdown",
+    "check:package": "node scripts/check-package.mjs",
+    "typecheck": "tsc --noEmit",
+    "lint": "oxlint --type-aware",
+    "lint:fix": "oxlint --type-aware --fix",
+    "format": "oxfmt",
+    "format:check": "oxfmt --check",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "deps:update": "taze -w && pnpm install",
+    "deps:check": "taze",
+    "prepare": "lefthook install || exit 0",
+    "prepublishOnly": "pnpm run build"
+  },
   "devDependencies": {
-    "@eslint/js": "10.0.1",
-    "@types/jest": "^30.0.0",
-    "eslint": "10.6.0",
-    "eslint-config-prettier": "10.1.8",
-    "jest": "^30.2.0",
-    "npm-run-all2": "^9.0.0",
-    "prettier": "3.9.5",
-    "ts-jest": "^29.4.5",
-    "typescript": "^6.0.2",
-    "typescript-eslint": "8.63.0"
-  }
+    "@arethetypeswrong/cli": "^0.18.5",
+    "@vitest/coverage-v8": "^4.1.10",
+    "lefthook": "^2.1.10",
+    "oxfmt": "^0.58.0",
+    "oxlint": "^1.73.0",
+    "oxlint-tsgolint": "^0.24.0",
+    "publint": "^0.3.21",
+    "taze": "^19.14.1",
+    "tsdown": "^0.22.4",
+    "typescript": "^7.0.2",
+    "vitest": "^4.1.10"
+  },
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "11.11.0",
+      "onFail": "download"
+    }
+  },
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
+  },
+  "packageManager": "pnpm@11.11.0"
 }
