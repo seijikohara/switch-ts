@@ -110,10 +110,10 @@ jobs:
         uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6
         with:
           node-version-file: .node-version
-          registry-url: 'https://registry.npmjs.org'
-          # OIDC trusted publishing needs a clean credential state; a restored
-          # setup-node cache leaves a dummy NODE_AUTH_TOKEN in .npmrc that makes
-          # npm skip the OIDC token exchange. Disable caching in this job only.
+          # No registry-url: setup-node v6.4.0 has no OIDC support and, when given
+          # a registry, injects a dummy NODE_AUTH_TOKEN into .npmrc that makes npm
+          # skip the OIDC token exchange and fail with E404. Without it, npm uses
+          # the default registry and authenticates via the workflow id-token.
           package-manager-cache: false
 
       - name: Install dependencies
