@@ -169,9 +169,7 @@ jobs:
             PUBLISH_OPTS="$PUBLISH_OPTS --tag $PRERELEASE_TAG"
             echo "📌 Publishing with tag: $PRERELEASE_TAG"
           fi
-          # TEMP diagnostic: --loglevel verbose surfaces npm's silent OIDC
-          # token-exchange failure (lib/utils/oidc.js logs it at verbose).
-          npm publish $PUBLISH_OPTS --loglevel verbose
+          npm publish $PUBLISH_OPTS
           echo "✅ Published switch-ts@$VERSION"
 
   finalize:
